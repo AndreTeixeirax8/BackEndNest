@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 /**Para o import do Typeorm funcionar é necessario instalar ele primeiro com o comando 
  * npm install typeorm
  */
 
-@Entity()
+@Entity('user')
 export class UserEntity{
 
     @PrimaryGeneratedColumn()
@@ -14,5 +14,16 @@ export class UserEntity{
 
     @Column({unique:true})
     username:string;
+
+    @Column()
+    email:string;
+
+    @Column()
+    password:string;
+
+    @BeforeInsert()
+    emailToLowerCase(){
+        this.email = this.email.toLowerCase();
+    }
 
 }
